@@ -1,0 +1,27 @@
+.small-order {
+  display: flex;
+  flex-flow: column;
+  width: 25%;
+  height: max-content;
+  padding: 10px 25px;
+  gap: 15px;
+  border: 1px solid $primary;
+  color: $primary;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.small-order__title {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.small-.order__text {
+  display: flex;
+  margin: 10px 0 0;
+  @include text-16px;
+  white-space: pre-line;
+  color: $primary;
+}

@@ -1,0 +1,25 @@
+.order__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include text-24px;
+  color: $primary;
+}
+
+.order__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-height: 400px;
+  margin: 25px 0 0;
+  object-fit: contain;
+}
+
+.order__text {
+  display: flex;
+  margin: 25px 0 0;
+  @include text-16px;
+  white-space: pre-line;
+  color: $primary;
+}

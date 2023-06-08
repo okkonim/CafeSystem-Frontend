@@ -1,0 +1,9 @@
+.view-product__back {
+  margin: 0 0 25px;
+  color: $primary;
+  text-decoration: none;
+}
+
+.view-product__button {
+  @include form-round-button;
+}

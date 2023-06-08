@@ -1,0 +1,23 @@
+.container.profile {
+  flex-flow: row wrap;
+  justify-content: space-between;
+  color: $primary;
+}
+
+.profile__form {
+  width: 100%;
+}
+
+.profile__forbidden,
+.profile__notification {
+  display: flex;
+  width: 100%;
+  @include text-20px;
+  justify-content: center;
+  align-items: center;
+  color: $primary;
+}
+
+.profile__stats-item {
+  margin: 25px 0 0;
+}

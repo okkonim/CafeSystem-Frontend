@@ -1,0 +1,127 @@
+@mixin text-24px {
+  font-size: 24px;
+  line-height: 120%;
+}
+
+@mixin text-20px {
+  font-size: 20px;
+  line-height: 120%;
+}
+
+@mixin text-16px {
+  font-size: 16px;
+  line-height: 120%;
+}
+
+@mixin text-12px {
+  font-size: 12px;
+  line-height: 120%;
+}
+
+@mixin form-round-label {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 54px;
+  min-height: 54px;
+  margin: 48px 0 0;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid $colorLight;
+  border-radius: 50px;
+  background: transparent;
+  transition: all 0.25s ease;
+
+  legend {
+    position: absolute;
+    top: -24px;
+    @include text-16px;
+    color: $colorLight;
+  }
+
+  input,
+  textarea {
+    display: flex;
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: $primary;
+    box-sizing: border-box;
+    resize: none;
+  }
+
+  &:hover,
+  &:focus-within {
+    border-color: darken($colorLight, 10%);
+  }
+
+  &:focus-within {
+    outline: 1px solid $primary;
+  }
+}
+
+@mixin form-round-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 54px;
+  min-height: 54px;
+  margin: 48px 0 0;
+  padding: 0 16px;
+  color: $colorLight;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 0 rgba($colorLight, 0.5) inset;
+  border: 1px solid $colorLight;
+  border-radius: 50px;
+  background: transparent;
+  transition: all 0.25s ease;
+  @include text-20px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    box-shadow: 0 -1px 1px 1px rgba($colorLight, 0.5) inset;
+  }
+
+  &:focus-within {
+    outline: 1px solid $primary;
+  }
+}
+
+@mixin form-round-select {
+  @include form-round-label;
+  width: 20%;
+  padding: 10px 20px;
+  font-family: $fonts;
+  color: $primary;
+  appearance: none;
+}
+
+@mixin form-round-label-dark {
+  @include form-round-label;
+  border-color: $colorDark;
+
+  legend {
+    color: $colorDark;
+  }
+
+  &:focus-within {
+    border-color: darken($colorDark, 10%);
+  }
+}
+
+@mixin form-round-button-dark {
+  @include form-round-button;
+  color: $colorDark;
+  box-shadow: 0 0 0 0 rgba($colorLight, 0.5) inset;
+  border: 1px solid $colorDark;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 -1px 1px 1px rgba($colorLight, 0.5) inset;
+  }
+}

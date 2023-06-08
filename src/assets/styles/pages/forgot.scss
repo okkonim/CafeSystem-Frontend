@@ -1,0 +1,56 @@
+.forgot {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: $contentWidth;
+  min-width: 300px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 40px 40px;
+  background: $colorLight;
+  box-sizing: border-box;
+}
+
+.forgot__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include text-24px;
+  color: $primary;
+}
+
+.forgot__label {
+  @include form-round-label-dark
+}
+
+.forgot__button {
+  @include form-round-button-dark
+}
+
+.forgot__label--name {
+  margin-top: 80px;
+}
+
+.forgot__error {
+  display: flex;
+  margin: 8px auto 0;
+  text-align: center;
+  color: $red;
+}
+
+.forgot__loading {
+  display: flex;
+  margin: 8px auto 0;
+  text-align: center;
+  color: $colorLight;
+}
+
+.forgot__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0 0;
+  color: $primary;
+  text-decoration: none;
+}

@@ -1,0 +1,39 @@
+.small-product {
+  display: flex;
+  flex-flow: column;
+  width: 25%;
+  height: max-content;
+  padding: 10px 25px;
+  gap: 15px;
+  border: 1px solid $primary;
+  color: $primary;
+  text-decoration: none;
+  border-radius: 8px;
+
+  &--available {
+    border-color: $green;
+  }
+
+  &--ending {
+    border-color: $yellow;
+  }
+
+  &--none {
+    opacity: 0.5;
+  }
+}
+
+.small-product__title {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.small-.product__text {
+  display: flex;
+  margin: 10px 0 0;
+  @include text-16px;
+  white-space: pre-line;
+  color: $primary;
+}
