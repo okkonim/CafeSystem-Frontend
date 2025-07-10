@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useEffect, useState } from 'react'
+import React, { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { requestEditProduct, requestProductByID } from '../api/api'
@@ -26,9 +26,7 @@ const EditProduct = () => {
         if (!res.isSuccess) return setFormStage(2);
         const fetchedData = res.payload.data
         if (!fetchedData.name) return setFormStage(2);
-        console.log(fetchedData)
         setEditProductData(fetchedData)
-        console.log(editProductData)
         setFormStage(0)
       })
     }
@@ -51,7 +49,7 @@ const EditProduct = () => {
       setFormStage(1)
       setEditProductData(blankData)
       setTimeout(() => { setFormStage(0) }, 3000)
-      return console.log('Product editd')
+      return
     })
   }
   return (

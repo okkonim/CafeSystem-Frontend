@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react'
+import React, { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react';
 import { useSelector } from 'react-redux'
 
 import { requestCreateProduct } from '../api/api'
@@ -32,7 +32,7 @@ const CreateProduct = () => {
       setFormStage(1)
       setCreateProductData(blankData)
       setTimeout(() => { setFormStage(0) }, 3000)
-      return console.log('Product created')
+      return
     })
   }
   return (

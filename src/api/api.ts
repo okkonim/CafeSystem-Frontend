@@ -13,17 +13,20 @@ let authToken = localStorage.getItem('authToken') || ''
 store.dispatch(setAuthToken(authToken))
 axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
 
-// axios.interceptors.response.use((res: AxiosResponse): AxiosResponse => {
-//   if (res.data.authToken) {
-//     authToken = res.data.authToken
-//     localStorage.setItem('authToken', authToken)
-//     store.dispatch(setAuthToken(authToken))
-//     axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
-//   }
-//   return res;
-// }, (err) => {
-//   return Promise.reject(err);
-// });
+// Глобальный перехватчик ошибок для axios
+axios.interceptors.response.use(
+  (res: AxiosResponse) => res,
+  (err: any) => {
+    if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+      // Автоматический выход пользователя при невалидном токене
+      store.dispatch(logOut())
+      store.dispatch(setAuthToken(null))
+      localStorage.removeItem('authToken')
+      // Можно добавить редирект на страницу логина, если есть доступ к history
+    }
+    return Promise.reject(err)
+  }
+)
 
 const getErrorMessage = (err: any) => {
   return (err.response?.data?.message || err.response?.data?.error || err.message || 'Ошибка')
@@ -40,10 +43,10 @@ export const requestLogIn = (userData: LoginData) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
     store.dispatch(setAuthToken(authToken))
     localStorage.setItem('authToken', authToken)
-    console.log(`Logged In, AT:"${authToken.slice(-5)}"`)
+    // Удалён вывод токена в консоль
     return { isSuccess: true, payload: res }
-  }).catch(err => {
-    console.log(`Error: "${getErrorMessage(err)}"`)
+  }).catch((err: any) => {
+    // Удалён вывод ошибки в консоль
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
   })
@@ -55,7 +58,7 @@ export const requestForgot = (userData: ForgotData) => {
     store.dispatch(setIsLoading(false))
     console.log(`Forgot Password`)
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -67,10 +70,10 @@ export const requestRegister = (userData: RegisterData) => {
   return axios.post(`${APIURL}/user/signup`, { ...userData, password: Number(userData.password) }).then((res: AxiosResponse) => {
     // return axios.post(`${APIURL}/user/register`, userData).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
-    console.log(`Registered`)
+    // Удалён вывод в консоль
     return { isSuccess: true, payload: res }
-  }).catch(err => {
-    console.log(`Error: "${getErrorMessage(err)}"`)
+  }).catch((err: any) => {
+    // Удалён вывод ошибки в консоль
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
   })
@@ -79,10 +82,10 @@ export const requestRegister = (userData: RegisterData) => {
 export const requestLogOut = () => {
   axios.post(`${APIURL}/logout`)
   axios.defaults.headers.common['Authorization'] = ``
-  store.dispatch(logOut)
+  store.dispatch(logOut())
   store.dispatch(setAuthToken(null))
   localStorage.removeItem('authToken')
-  console.log('Log out successful')
+  // Удалён вывод в консоль
 }
 
 
@@ -98,7 +101,7 @@ export const requestEditProduct = (productData: EditProductData) => {
   }).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -115,7 +118,7 @@ export const requestCreateProduct = (productData: CreateProductData) => {
   }).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -128,7 +131,7 @@ export const requestAllProducts = () => {
     store.dispatch(setIsLoading(false))
     console.log('Product list')
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -140,7 +143,7 @@ export const requestProductByID = (productID: number) => {
   return axios.get(`${APIURL}/product/get/${productID}`).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -152,7 +155,7 @@ export const requestDeleteProductByID = (productID: number) => {
   return axios.delete(`${APIURL}/product/delete/${productID}`).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -165,7 +168,7 @@ export const requestProfileInfo = () => {
   return axios.get(`${APIURL}/user/get`).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
     return { isSuccess: true, payload: res.data?.payload }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -178,7 +181,7 @@ export const requestEditProfileInfo = (profileData: ProfileData) => {
     store.dispatch(setIsLoading(false))
     store.dispatch(logIn(res.data))
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -197,7 +200,7 @@ export const requestEditOrder = (orderData: EditOrderData) => {
   }).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -215,7 +218,7 @@ export const requestCreateOrder = (orderData: CreateOrderData) => {
   }).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -240,7 +243,7 @@ export const requestOrderByID = (orderID: number) => {
   return axios.get(`${APIURL}/bill/get/${orderID}`).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }
@@ -252,7 +255,7 @@ export const requestDeleteOrderByID = (orderID: number) => {
   return axios.delete(`${APIURL}/bill/delete/${orderID}`).then((res: AxiosResponse) => {
     store.dispatch(setIsLoading(false))
     return { isSuccess: true, payload: res }
-  }).catch(err => {
+  }).catch((err: any) => {
     console.log(`Error: "${getErrorMessage(err)}"`)
     store.dispatch(setIsLoading(false))
     return { isSuccess: false, payload: getErrorMessage(err) }

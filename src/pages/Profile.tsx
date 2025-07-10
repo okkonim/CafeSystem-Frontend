@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react'
+import React, { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react';
 import { useSelector } from 'react-redux'
 
 import { requestEditProfileInfo } from '../api/api'
@@ -32,7 +32,7 @@ const Profile = () => {
       if (!res.isSuccess) { return setValidationError(res.payload) }
       setFormStage(1)
       setTimeout(() => { setFormStage(0); navigate('/login') }, 3000)
-      return console.log('Profile info changed')
+      return
     })
   }
 

@@ -1,5 +1,5 @@
-import { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { requestCreateOrder } from '../api/api'
 import { validateCreateOrderInput } from '../utils/validator'
@@ -32,7 +32,7 @@ const CreateOrder = () => {
       setFormStage(1)
       setCreateOrderData(blankData)
       setTimeout(() => { setFormStage(0) }, 3000)
-      return console.log('Order created')
+      return
     })
   }
   return (

@@ -1,5 +1,5 @@
-import { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { requestEditOrder, requestOrderByID } from '../api/api'
 import { validateEditOrderInput } from '../utils/validator'
@@ -26,9 +26,7 @@ const EditOrder = () => {
         if (!res.isSuccess) return setFormStage(2);
         const fetchedData = res.payload.data
         if (!fetchedData.name) return setFormStage(2);
-        console.log(fetchedData)
         setEditOrderData(fetchedData)
-        console.log(editOrderData)
         setFormStage(0)
       })
     }
@@ -51,7 +49,7 @@ const EditOrder = () => {
       setFormStage(1)
       setEditOrderData(blankData)
       setTimeout(() => { setFormStage(0) }, 3000)
-      return console.log('Order editd')
+      return
     })
   }
   return (

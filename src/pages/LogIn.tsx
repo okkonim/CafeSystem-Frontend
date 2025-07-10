@@ -1,7 +1,7 @@
-import { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { NavigateFunction, useNavigate } from 'react-router'
-import { type Dispatch } from '@reduxjs/toolkit'
+import React, { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavigateFunction, useNavigate } from 'react-router';
+import { type Dispatch } from '@reduxjs/toolkit';
 
 import { requestLogIn } from '../api/api'
 import { logIn } from '../store/auth'
@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 const LogIn = () => {
   const navigate: NavigateFunction = useNavigate();
   const dispatch: Dispatch = useDispatch()
-  const [loginData, setLoginData]: [LoginData, React.Dispatch<LoginData>] = useState({ email: 'qwer@gmail.com', password: '12345678' })
+  const [loginData, setLoginData]: [LoginData, React.Dispatch<LoginData>] = useState({ email: '', password: '' })
   const [validationError, setValidationError]: [string, React.Dispatch<string>] = useState('')
   const { isLoading } = useSelector((state: any) => state.status)
 

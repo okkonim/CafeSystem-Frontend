@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -25,7 +25,6 @@ const ViewProduct = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       const productData = (await requestProductByID(Number(productID))).payload.data
-      console.log(productData)
       return setProduct(productData)
     }
     fetchProductData()

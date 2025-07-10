@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import { requestDeleteOrderByID, requestOrderByID } from '../api/api'
-import BigOrder from '../components/BigOrder'
-import { Link } from 'react-router-dom'
-import { Order } from '../types'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { requestDeleteOrderByID, requestOrderByID } from '../api/api';
+import BigOrder from '../components/BigOrder';
+import { Link } from 'react-router-dom';
+import { Order } from '../types';
 
 const ViewOrder = () => {
   const blankData = {
@@ -25,7 +25,6 @@ const ViewOrder = () => {
   useEffect(() => {
     const fetchOrderData = async () => {
       const orderData = (await requestOrderByID(Number(orderID))).payload.data
-      console.log(orderData)
       return setOrder(orderData)
     }
     fetchOrderData()
