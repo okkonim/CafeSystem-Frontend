@@ -1,6 +1,7 @@
 # Cafe Management System Frontend
 
 A web client for cafe management: products, orders, users. Built with React + Redux Toolkit + TypeScript.
+![image](https://github.com/okkonim/CafeSystem-Frontend/assets/113597041/2376f582-0aa0-4150-94ea-c93155b86e55)
 
 ---
 
